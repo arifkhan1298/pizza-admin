@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Shop - Delicious Pizzas & More</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Pizza Shop</h1>
+            <button id="toggle-menu" class="toggle-btn" aria-label="Toggle menu">☰</button>
+            <nav id="nav" class="nav-menu">
+                <a href="#menu" class="nav-toggle-btn">Menu</a>
+                <a href="#about" class="nav-toggle-btn">About</a>
+                <a href="#problems" class="nav-toggle-btn">Problems</a>
+                <a href="login.html" class="nav-toggle-btn">Login</a>
+                <a href="signup.html" class="nav-toggle-btn">Signup</a>
+                <!-- <a href="admin.html" class="nav-toggle-btn">Admin</a> -->
+                <!-- <button id="size-toggle" class="nav-toggle-btn" aria-label="Toggle size filters">Sizes</button> -->
+                <button id="theme-toggle" class="nav-toggle-btn" aria-label="Toggle theme">Theme</button>
+                <button id="logout" style="display:none;" class="nav-toggle-btn">Logout</button>
+                <button id="my-orders" style="display:none;" class="nav-toggle-btn">My Orders</button>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <h2>Welcome to Pizza Shop</h2>
+            <p>Login or signup to order from our huge menu in Pakistani Rupees.</p>
+            <p class="hero-note">Cold drink is gifted with every pizza order. Buy 5 pizzas and get a free small pizza!</p>
+        </div>
+    </section>
+
+    <section id="menu" style="display:none;">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <p class="section-note">More than 100 dishes including pizzas, burgers, and shawarmas. Order directly from any item.</p>
+            <div id="size-filters" class="size-filters"></div>
+            <div class="menu-grid"></div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Pizza Shop</h2>
+            <p>Welcome to Pizza Shop, your go-to place for delicious pizzas, burgers, and shawarmas in Pakistan. We offer a wide variety of mouth-watering dishes made with fresh ingredients. Our mission is to provide quality food with fast delivery.</p>
+            <p>Established in 2020, we have been serving happy customers with our unique recipes and friendly service. Every pizza comes with a complimentary cold drink, and buy 5 pizzas to get a free small pizza!</p>
+        </div>
+    </section>
+
+    <section id="problems">
+        <div class="container">
+            <h2>Report a Problem</h2>
+            <form id="problem-form">
+                <label for="problem-name">Name</label>
+                <input type="text" id="problem-name" required>
+                <label for="problem-number">Phone Number</label>
+                <input type="text" id="problem-number" required>
+                <label for="problem-description">Problem Description</label>
+                <textarea id="problem-description" required></textarea>
+                <button type="submit">Submit Problem</button>
+            </form>
+        </div>
+    </section>
+    <div id="order-modal" style="display:none;" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Place Your Order</h2>
+            <div id="order-item-display"></div>
+            <div class="customer-form">
+                <label for="modal-name">Full Name</label>
+                <input type="text" id="modal-name" placeholder="Your name">
+                <label for="modal-phone">Phone Number</label>
+                <input type="text" id="modal-phone" placeholder="0312xxxxxxx">
+                <label for="modal-address">Delivery Address</label>
+                <textarea id="modal-address" placeholder="House number, street, city"></textarea>
+                <label for="modal-quantity">Quantity (Pieces)</label>
+                <input type="number" id="modal-quantity" min="1" value="1" placeholder="How many pieces">
+            </div>
+            <div class="order-summary">
+                <p><strong>Unit Price:</strong> PKR <span id="unit-price">0</span></p>
+                <p><strong>Quantity:</strong> <span id="display-quantity">1</span></p>
+                <p id="total-bill"><strong>Total Bill: PKR 0</strong></p>
+            </div>
+            <button id="place-order">Confirm Order</button>
+        </div>
+    </div>
+    
+
+    <!-- Orders Modal -->
+    <div id="orders-modal" style="display:none;" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-orders">&times;</span>
+            <h2>My Orders</h2>
+            <div id="orders-list" class="orders-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Pizzi Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

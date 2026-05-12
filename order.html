@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Pizza Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .order-container {
+            max-width: 600px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .order-container h2 {
+            text-align: center;
+            color: #e63946;
+            margin-bottom: 2rem;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 1rem;
+            background: #e63946;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            margin: 0.5rem;
+        }
+        button:hover {
+            background: #d62828;
+        }
+        #total {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #e63946;
+            margin: 1rem 0;
+        }
+        @media (max-width: 480px) {
+            .order-container {
+                margin: 2rem auto;
+                padding: 1rem;
+            }
+            .order-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h2>Place Your Order</h2>
+        <div id="orderForm">
+            <div class="order-item">
+                <div>
+                    <img src="https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Pizza" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                    <span>Pizza</span>
+                </div>
+                <input type="number" id="pizzaQty" min="0" value="0">
+                <span>$10 each</span>
+            </div>
+            <div class="order-item">
+                <div>
+                    <img src="https://images.pexels.com/photos/2775860/pexels-photo-2775860.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Cold Drink" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                    <span>Cold Drink (only with pizza)</span>
+                </div>
+                <input type="number" id="drinkQty" min="0" value="0">
+                <span>$2 each</span>
+            </div>
+            <div class="order-item">
+                <div>
+                    <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Burger" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                    <span>Burger</span>
+                </div>
+                <input type="number" id="burgerQty" min="0" value="0">
+                <span>$8 each</span>
+            </div>
+            <button onclick="calculateTotal()">Calculate Total</button>
+            <p id="total">Total: $0</p>
+            <button onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+    <script>
+        let discount = 0;
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (user) {
+            discount = 0.1; // 10%
+        }
+
+        function calculateTotal() {
+            const pizzaQty = parseInt(document.getElementById('pizzaQty').value) || 0;
+            const drinkQty = parseInt(document.getElementById('drinkQty').value) || 0;
+            const burgerQty = parseInt(document.getElementById('burgerQty').value) || 0;
+
+            if (drinkQty > 0 && pizzaQty === 0) {
+                alert('Cold drinks only with pizza!');
+                return;
+            }
+
+            let total = (pizzaQty * 10) + (drinkQty * 2) + (burgerQty * 8);
+            total -= total * discount;
+
+            // Gift: if 5 pizzas, add small pizza free (assume $5)
+            if (pizzaQty >= 5) {
+                total -= 5;
+                alert('Gift: Small pizza added for free!');
+            }
+
+            document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        function placeOrder() {
+            const pizzaQty = parseInt(document.getElementById('pizzaQty').value) || 0;
+            const drinkQty = parseInt(document.getElementById('drinkQty').value) || 0;
+            const burgerQty = parseInt(document.getElementById('burgerQty').value) || 0;
+
+            if (drinkQty > 0 && pizzaQty === 0) {
+                alert('Cold drinks only with pizza!');
+                return;
+            }
+
+            let total = (pizzaQty * 10) + (drinkQty * 2) + (burgerQty * 8);
+            total -= total * discount;
+
+            let gift = false;
+            if (pizzaQty >= 5) {
+                gift = true;
+                total -= 5;
+            }
+
+            const order = {
+                user: user ? user.email : 'guest',
+                pizza: pizzaQty,
+                drink: drinkQty,
+                burger: burgerQty,
+                total: total,
+                gift: gift,
+                date: new Date().toISOString()
+            };
+
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert('Order placed!');
+            window.location.href = 'pizzi shop.html';
+        }
+    </script>
+</body>
+</html>

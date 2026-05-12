@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Pizzi Shop</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=1200') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo a {
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+        }
+
+        .logo-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1d3557;
+            margin-top: 0.5rem;
+        }
+
+        .logo-title span {
+            color: #e63946;
+        }
+
+        h2 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.5rem;
+            color: #1d3557;
+            margin-bottom: 0.25rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .sub {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #444;
+            margin-bottom: 0.4rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Nunito', sans-serif;
+            color: #333;
+            background: #fff;
+            transition: border 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 1rem;
+            background: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-main:hover {
+            background: #d62828;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .links a {
+            color: #e63946;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            color: #e63946;
+        }
+
+        .discount-badge {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.88rem;
+            color: #e63946;
+            font-weight: 700;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem 1rem;
+            }
+            .logo-title {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            .sub {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+            input {
+                padding: 0.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="logo">
+            <div class="logo-icon">🍕</div>
+            <div class="logo-title">Pizzi<span>Shop</span></div>
+        </div>
+        <h2>Welcome!</h2>
+        <p class="sub">Login to your account</p>
+        <div class="discount-badge">🎉 Get a special 10% discount when you log in!</div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-main">🔑 Login</button>
+        </form>
+        <div class="links">
+            Don't have an account? <a href="signup.html">Signup Now</a>
+        </div>
+        <a class="back-home" href="pizzi_shop.html">← Back to Home</a>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                alert('✅ Login successful! You get a 10% discount.');
+                window.location.href = 'pizzi shop.html';
+            } else {
+                alert('❌ Incorrect email or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>
